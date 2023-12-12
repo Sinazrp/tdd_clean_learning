@@ -1,5 +1,7 @@
-import 'package:tdd_clean_learning/core/utils/typedef.dart';
-
-abstract class UseCase<Type, Params> {
+abstract class UseCaseParams<Type, Params> {
   Future<Type> call(Params params);
+}
+
+abstract class UseCaseVoid<Type> {
+  Future<Type> call();
 }
