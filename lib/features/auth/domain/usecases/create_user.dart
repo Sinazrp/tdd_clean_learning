@@ -1,11 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 import 'package:tdd_clean_learning/core/usecase/usecase.dart';
-import 'package:tdd_clean_learning/core/utils/typedef.dart';
 
 import '../repositories/auth_repo.dart';
 
-class CreateUser extends UseCase<void, CreateUserParams> {
+class CreateUser extends UseCaseParams<void, CreateUserParams> {
   final AuthRepository _authRepository;
   CreateUser(this._authRepository);
 
