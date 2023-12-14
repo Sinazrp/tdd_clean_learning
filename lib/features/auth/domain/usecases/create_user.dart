@@ -4,7 +4,7 @@ import 'package:tdd_clean_learning/core/usecase/usecase.dart';
 
 import '../repositories/auth_repo.dart';
 
-class CreateUser extends UseCaseParams<void, CreateUserParams> {
+class CreateUser implements UseCaseParams<void, CreateUserParams> {
   final AuthRepository _authRepository;
   CreateUser(this._authRepository);
 
