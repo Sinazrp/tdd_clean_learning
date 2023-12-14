@@ -5,7 +5,7 @@ import 'package:tdd_clean_learning/core/utils/typedef.dart';
 import 'package:tdd_clean_learning/features/auth/domain/entities/user.dart';
 import 'package:tdd_clean_learning/features/auth/domain/repositories/auth_repo.dart';
 
-class GetUser extends UseCaseVoid<Either<Failure, List<User>>> {
+class GetUser implements UseCaseVoid<Either<Failure, List<User>>> {
   final AuthRepository _authRepository;
   GetUser(this._authRepository);
   @override
