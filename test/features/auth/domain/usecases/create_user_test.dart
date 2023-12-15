@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:tdd_clean_learning/features/auth/domain/repositories/auth_repo.dart';
 import 'package:tdd_clean_learning/features/auth/domain/usecases/create_user.dart';
-import 'usecase_mocks.dart';
+import 'auth_repo.mock.dart';
 
 void main() {
   late CreateUser useCase;
