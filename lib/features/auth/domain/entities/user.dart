@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
-  final int id;
+  final String id;
   final String createdAt;
   final String name;
   final String avatar;
@@ -16,7 +16,7 @@ class User extends Equatable {
             avatar: 'empty.avatar',
             createdAt: 'empty.createdAt',
             name: 'empty.name',
-            id: 1);
+            id: '1');
 
   @override
   List<Object?> get props => [id, createdAt, name, avatar];
