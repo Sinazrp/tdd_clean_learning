@@ -5,8 +5,7 @@ import 'package:tdd_clean_learning/core/errors/failure.dart';
 import 'package:tdd_clean_learning/features/auth/domain/entities/user.dart';
 import 'package:tdd_clean_learning/features/auth/domain/repositories/auth_repo.dart';
 import 'package:tdd_clean_learning/features/auth/domain/usecases/get_user.dart';
-
-import 'usecase_mocks.dart';
+import 'auth_repo.mock.dart';
 
 void main() {
   late final GetUser useCase;
@@ -16,7 +15,8 @@ void main() {
     repository = MockAuthRepo();
     useCase = GetUser(repository);
   });
-  test('it should call [Repository.getUser()]', () async {
+  test('it should call [Repository.getUser()] and return [List<User>] ',
+      () async {
     //Arrange
     when(() => repository.getUsers())
         .thenAnswer((_) async => const Right<Failure, List<User>>([user]));
