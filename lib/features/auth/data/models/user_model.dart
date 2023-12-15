@@ -44,4 +44,11 @@ class UserModel extends User {
         'createdAt': createdAt,
       };
   String toJson() => jsonEncode(toMap());
+
+  const UserModel.empty()
+      : this(
+            avatar: 'empty.avatar',
+            createdAt: 'empty.createdAt',
+            name: 'empty.name',
+            id: '1');
 }
