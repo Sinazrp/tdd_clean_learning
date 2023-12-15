@@ -3,8 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:tdd_clean_learning/features/auth/domain/repositories/auth_repo.dart';
 import 'package:tdd_clean_learning/features/auth/domain/usecases/create_user.dart';
-
-class MockAuthRepo extends Mock implements AuthRepository {}
+import 'usecase_mocks.dart';
 
 void main() {
   late CreateUser useCase;
