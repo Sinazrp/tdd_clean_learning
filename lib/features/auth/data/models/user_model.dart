@@ -23,6 +23,20 @@ class UserModel extends User {
           id: map['id'] as String,
         );
 
+  UserModel copyWith({
+    String? id,
+    String? createdAt,
+    String? name,
+    String? avatar,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      name: name ?? this.name,
+      avatar: avatar ?? this.avatar,
+    );
+  }
+
   DataMap toMap() => {
         'id': id,
         'avatar': avatar,
