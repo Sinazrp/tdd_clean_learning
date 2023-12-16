@@ -47,8 +47,9 @@ class UserModel extends User {
 
   const UserModel.empty()
       : this(
-            avatar: 'empty.avatar',
-            createdAt: 'empty.createdAt',
-            name: 'empty.name',
+            avatar:
+                "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/807.jpg",
+            createdAt: "2023-12-15T11:57:07.791Z",
+            name: 'Thelma Turcotte',
             id: '1');
 }
