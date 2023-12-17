@@ -65,6 +65,12 @@ void main() {
   });
 
   group('copywith', () {
-    test('should return [Model.copyWith param]', () {});
+    test('should return [Model.copyWith param]', () {
+      //act
+      final result = tModel.copyWith(name: 'sina');
+
+      // assert
+      expect(result.name, equals('sina'));
+    });
   });
 }
