@@ -4,6 +4,7 @@ import 'package:tdd_clean_learning/core/errors/exceptions.dart';
 import 'package:tdd_clean_learning/core/errors/failure.dart';
 import 'package:tdd_clean_learning/core/utils/typedef.dart';
 import 'package:tdd_clean_learning/features/auth/data/datasources/remote/auth_remote_datasource.dart';
+import 'package:tdd_clean_learning/features/auth/data/models/user_model.dart';
 import 'package:tdd_clean_learning/features/auth/domain/entities/user.dart';
 import 'package:tdd_clean_learning/features/auth/domain/repositories/auth_repo.dart';
 
@@ -26,7 +27,12 @@ class AuthRepoImplementation implements AuthRepository {
   }
 
   @override
-  ResultFuture<List<User>> getUsers() {
-    throw UnimplementedError();
+  ResultFuture<List<UserModel>> getUsers() async {
+    try {
+      final result = await _remoteDataSource.getUsers();
+      return Right<Failure, List<UserModel>>(result);
+    } on ServerException catch (e) {
+      return Left(ApiFailure.fromE(e: e));
+    }
   }
 }
