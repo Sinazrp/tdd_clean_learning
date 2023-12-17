@@ -11,11 +11,11 @@ void main() {
   const tModel = UserModel.empty();
   test('should be subclass of [User] entity ', () {
     //Arrange
-
+    const tModel1 = UserModel.empty();
     //Act : no action
 
     // assert
-    expect(tModel, isA<User>());
+    expect(tModel1, isA<User>());
   });
 
   final tJson = fixture('user.json');
@@ -42,5 +42,29 @@ void main() {
       //assert
       expect(result, equals(tModel));
     });
+  });
+
+  group(' to map', () {
+    test('should return a [Map]', () {
+      //act
+      final result = tModel.toMap();
+
+      //assert
+      expect(result, equals(tMap));
+    });
+  });
+
+  group('tojson', () {
+    test('should return a json ', () {
+      //act
+      final result = tModel.toJson();
+
+      //assert
+      expect(result, equals(tJson));
+    });
+  });
+
+  group('copywith', () {
+    test('should return [Model.copyWith param]', () {});
   });
 }

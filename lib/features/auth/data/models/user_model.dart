@@ -38,10 +38,10 @@ class UserModel extends User {
   }
 
   DataMap toMap() => {
-        'id': id,
-        'avatar': avatar,
-        'name': name,
         'createdAt': createdAt,
+        'name': name,
+        'avatar': avatar,
+        'id': id,
       };
   String toJson() => jsonEncode(toMap());
 
