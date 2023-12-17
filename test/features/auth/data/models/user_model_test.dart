@@ -31,4 +31,16 @@ void main() {
       expect(result, equals(tModel));
     });
   });
+
+  group('from json ', () {
+    test('should return a [UserModel] with the right data ', () {
+      //Arrange
+
+      //act
+      final result = UserModel.fromJson(tJson);
+
+      //assert
+      expect(result, equals(tModel));
+    });
+  });
 }
