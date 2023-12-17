@@ -13,7 +13,7 @@ class MockAuthRemoteDataSource extends Mock implements AuthRemoteDataSource {}
 void main() {
   late AuthRemoteDataSource remote;
   late AuthRepoImplementation repoImple;
-  final tParams = const UserModel.empty();
+  const tParams = UserModel.empty();
 
   setUp(() {
     remote = MockAuthRemoteDataSource();
@@ -64,6 +64,35 @@ void main() {
           result,
           equals(const Left<Failure, void>(
               ApiFailure(message: 'unknown error', statusCode: 500))));
+    });
+  });
+  group('getUsers', () {
+    test('call the [Auth Remote Data Source] and succes', () async {
+//arrange
+      when(() => remote.getUsers()).thenAnswer((_) async => [tParams]);
+
+//act
+      final result = await repoImple.getUsers();
+
+//assert
+      expect(result, isA<Right<Failure, List<UserModel>>>());
+      verify(() => remote.getUsers()).called(1);
+      verifyNoMoreInteractions(remote);
+    });
+
+    test('call getUser and failure response', () async {
+      //arrange
+      when(() => remote.getUsers()).thenThrow(
+          const ServerException(message: 'cake?vageie', statusCode: 500));
+
+      //action
+      final result = await repoImple.getUsers();
+
+      //assert
+      expect(
+          result,
+          const Left<Failure, List<UserModel>>(
+              ApiFailure(message: 'cake?vageie', statusCode: 500)));
     });
   });
 }
