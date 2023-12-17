@@ -21,8 +21,7 @@ class AuthRepoImplementation implements AuthRepository {
           createdAt: createdAt, name: name, avatar: avatar);
       return const Right<Failure, void>(null);
     } on ServerException catch (e) {
-      return Left<Failure, void>(
-          ApiFailure(message: e.message, statusCode: e.statusCode));
+      return Left<Failure, void>(ApiFailure.fromE(e: e));
     }
   }
 
