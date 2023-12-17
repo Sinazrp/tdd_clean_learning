@@ -1,7 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:tdd_clean_learning/core/errors/api_failure.dart';
 import 'package:tdd_clean_learning/core/errors/exceptions.dart';
+import 'package:tdd_clean_learning/core/errors/failure.dart';
 import 'package:tdd_clean_learning/features/auth/data/datasources/remote/auth_remote_datasource.dart';
 import 'package:tdd_clean_learning/features/auth/data/models/user_model.dart';
 import 'package:tdd_clean_learning/features/auth/data/repositories/auth_repo_implementaion.dart';
@@ -52,8 +54,16 @@ void main() {
               const ServerException(message: 'unknown error', statusCode: 500));
 
       //act
+      final result = await repoImple.createUser(
+          createdAt: tParams.createdAt,
+          name: tParams.name,
+          avatar: tParams.avatar);
 
       //assert
+      expect(
+          result,
+          equals(const Left<Failure, void>(
+              ApiFailure(message: 'unknown error', statusCode: 500))));
     });
   });
 }
