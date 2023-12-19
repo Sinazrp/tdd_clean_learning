@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
+import 'package:tdd_clean_learning/core/errors/exceptions.dart';
 import 'package:tdd_clean_learning/core/utils/consts.dart';
 import 'package:tdd_clean_learning/features/auth/data/datasources/remote/auth_remote_datasource.dart';
 import 'package:tdd_clean_learning/features/auth/data/models/user_model.dart';
@@ -37,10 +38,26 @@ void main() {
             'createdAt': tparams.createdAt,
             'name': tparams.name,
           }))).called(1);
+      verifyNoMoreInteractions(client);
     });
     test('should throw api exceptiobn', () {
       when(() => client.post(any(), body: any(named: 'body')))
-          .thenAnswer((_) async => http.Response('faild to created', 500));
+          .thenAnswer((_) async => http.Response('not valid register', 400));
+      final methodcall = remoteDataSource.createUser;
+      expect(
+          () => methodcall(
+              createdAt: tparams.createdAt,
+              name: tparams.name,
+              avatar: tparams.avatar),
+          throwsA(const ServerException(
+              message: 'not valid register', statusCode: 400)));
+      verify(() => client.post(Uri.parse("$baseUrl/users"),
+          body: jsonEncode({
+            'avatar': tparams.avatar,
+            'createdAt': tparams.createdAt,
+            'name': tparams.name,
+          }))).called(1);
+      verifyNoMoreInteractions(client);
     });
   });
 }
