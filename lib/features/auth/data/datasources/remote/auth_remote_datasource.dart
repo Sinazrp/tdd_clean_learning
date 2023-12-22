@@ -24,15 +24,19 @@ class AuthRemoteDataSourceImple implements AuthRemoteDataSource {
       {required String createdAt,
       required String name,
       required String avatar}) async {
-    final response = await _client.post(Uri.parse('$baseUrl/users'),
-        body: jsonEncode({
-          'avatar': avatar,
-          'createdAt': createdAt,
-          'name': name,
-        }));
-    if (response.statusCode != 200 && response.statusCode != 201) {
-      throw ServerException(
-          message: response.body, statusCode: response.statusCode);
+    try {
+      final response = await _client.post(Uri.parse('$baseUrl/users'),
+          body: jsonEncode({
+            'avatar': avatar,
+            'createdAt': createdAt,
+            'name': name,
+          }));
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        throw ServerException(
+            message: response.body, statusCode: response.statusCode);
+      }
+    } catch (e) {
+      throw ServerException(message: e.toString(), statusCode: 505);
     }
   }
 
