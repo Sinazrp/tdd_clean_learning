@@ -35,6 +35,8 @@ class AuthRemoteDataSourceImple implements AuthRemoteDataSource {
         throw ServerException(
             message: response.body, statusCode: response.statusCode);
       }
+    } on ServerException {
+      rethrow;
     } catch (e) {
       throw ServerException(message: e.toString(), statusCode: 505);
     }
