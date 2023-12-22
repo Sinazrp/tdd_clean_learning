@@ -13,6 +13,7 @@ class MockHttpClient extends Mock implements http.Client {}
 void main() {
   UserModel tparams = const UserModel.empty();
   late http.Client client;
+
   late AuthRemoteDataSource remoteDataSource;
   registerFallbackValue(Uri());
   setUp(() {
@@ -56,6 +57,21 @@ void main() {
             'createdAt': tparams.createdAt,
             'name': tparams.name,
           }))).called(1);
+      verifyNoMoreInteractions(client);
+    });
+  });
+  group('get Users tests', () {
+    test('should complete successfully and return List of users', () async {
+      //arrange
+      const userModelList = [UserModel.empty()];
+      when(() => client.get(any())).thenAnswer((_) async =>
+          http.Response(jsonEncode([userModelList.first.toMap()]), 200));
+
+      //act
+      final result = await remoteDataSource.getUsers();
+
+      expect(result, equals(userModelList.first));
+      verify(() => client.get(Uri.parse("$baseUrl/users"))).called(1);
       verifyNoMoreInteractions(client);
     });
   });
