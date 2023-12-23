@@ -11,23 +11,25 @@ class AuthInitial extends AuthState {
   const AuthInitial();
 }
 
-class CreatingUser extends AuthState {}
+class CreatingUserState extends AuthState {
+  const CreatingUserState();
+}
 
-class GettingUser extends AuthState {}
+class GettingUserState extends AuthState {}
 
-class UserCreated extends AuthState {}
+class UserCreatedState extends AuthState {}
 
-class UsersLoaded extends AuthState {
-  const UsersLoaded(this.users);
-  final List<UserModel> users;
+class UsersLoadedState extends AuthState {
+  const UsersLoadedState(this.users);
+  final List<User> users;
   @override
   //! it is very important to do this on lists
   List<Object> get props => users.map((e) => e.id).toList();
 }
 
-class AuthError extends AuthState {
+class AuthErrorState extends AuthState {
   final String message;
-  const AuthError(this.message);
+  const AuthErrorState(this.message);
   @override
   List<String> get props => [message];
 }
