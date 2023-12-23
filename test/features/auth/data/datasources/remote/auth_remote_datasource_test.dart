@@ -70,7 +70,22 @@ void main() {
       //act
       final result = await remoteDataSource.getUsers();
 
-      expect(result, equals(userModelList.first));
+      expect(result[0], equals(userModelList.first));
+      verify(() => client.get(Uri.parse("$baseUrl/users"))).called(1);
+      verifyNoMoreInteractions(client);
+    });
+    test('should throw an exception when status code is not 200', () async {
+      //arrange
+      when(() => client.get(any())).thenThrow(
+          const ServerException(message: 'bad request', statusCode: 523));
+      //act
+      final methodcall = remoteDataSource.getUsers;
+
+      //assert
+      expect(
+          methodcall(),
+          throwsA(
+              const ServerException(message: 'bad request', statusCode: 523)));
       verify(() => client.get(Uri.parse("$baseUrl/users"))).called(1);
       verifyNoMoreInteractions(client);
     });
