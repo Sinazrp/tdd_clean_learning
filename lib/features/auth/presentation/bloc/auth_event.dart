@@ -5,15 +5,15 @@ abstract class AuthEvent extends Equatable {
 }
 
 class CreateUserEvent extends AuthEvent {
-  final String cretedAt;
+  final String createdAt;
   final String name;
   final String avatar;
 
   const CreateUserEvent(
-      {required this.cretedAt, required this.name, required this.avatar});
+      {required this.createdAt, required this.name, required this.avatar});
 
   @override
-  List<Object?> get props => [cretedAt, name, avatar];
+  List<Object?> get props => [createdAt, name, avatar];
 }
 
 class GetUserEvent extends AuthEvent {
