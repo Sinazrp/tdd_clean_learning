@@ -15,3 +15,11 @@ class CreateUserEvent extends AuthEvent {
   @override
   List<Object?> get props => [cretedAt, name, avatar];
 }
+
+class GetUserEvent extends AuthEvent {
+  const GetUserEvent();
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+}
