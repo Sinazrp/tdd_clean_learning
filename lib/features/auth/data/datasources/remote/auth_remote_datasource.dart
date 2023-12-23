@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:tdd_clean_learning/core/errors/exceptions.dart';
 import 'package:tdd_clean_learning/core/utils/consts.dart';
+import 'package:tdd_clean_learning/core/utils/typedef.dart';
 import 'package:tdd_clean_learning/features/auth/data/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -43,7 +44,24 @@ class AuthRemoteDataSourceImple implements AuthRemoteDataSource {
   }
 
   @override
-  Future<List<UserModel>> getUsers() {
-    throw UnimplementedError();
+  Future<List<UserModel>> getUsers() async {
+    try {
+      final response = await _client.get(Uri.parse(
+        '$baseUrl/users',
+      ));
+      if (response.statusCode == 200) {
+        return List<DataMap>.from(jsonDecode(response.body) as List)
+            .map((e) => UserModel.fromMap(e))
+            .toList();
+      } else {
+        throw ServerException(
+            message: response.body, statusCode: response.statusCode);
+      }
+    } on ServerException {
+      rethrow;
+    } catch (e) {
+      ServerException(message: 'Unexpected', statusCode: 555);
+    }
+    return [];
   }
 }
