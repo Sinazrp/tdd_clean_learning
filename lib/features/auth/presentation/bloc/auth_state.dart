@@ -23,7 +23,7 @@ class UsersLoadedState extends AuthState {
   const UsersLoadedState(this.users);
   final List<User> users;
   @override
-  //! it is very important to do this on lists
+  //! it is very important to do this on lists for mapping
   List<Object> get props => users.map((e) => e.id).toList();
 }
 
